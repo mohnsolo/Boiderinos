@@ -15,24 +15,24 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="src\Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Game.cpp">
+    <ClCompile Include="src\GameUtil.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GameUtil.cpp">
+    <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Components.h">
+    <ClInclude Include="src\Components.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game.h">
+    <ClInclude Include="src\Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GameUtil.h">
+    <ClInclude Include="src\GameUtil.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

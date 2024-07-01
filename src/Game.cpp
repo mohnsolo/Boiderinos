@@ -40,7 +40,7 @@ void Game::initWindow(sf::VideoMode videoMode)
 void Game::initText(sf::Text* textObj)
 {
     displayText = true;
-    if (!font.loadFromFile("GohuFont14NerdFont-Regular.ttf"))
+    if (!font.loadFromFile("font/GohuFont14NerdFont-Regular.ttf"))
     {
         // error...
         std::cout << "ERROR loading font\n";
@@ -133,12 +133,12 @@ void Game::moveCenters()
 
 
 /*
+     x' = xcosT - ysinT
+     y' = xsinT + ycosT
      x,y = original vector
      x',y' = rotated vector
      ax,ay = vector to rotate by
      M = magnitude of ax,ay = sqrt(ax*ax + ay*ay)
-     x' = xcosT - ysinT
-     y' = xsinT + ycosT
      cosT = ax/M
      sinT = ay/M
      x' = x*ax/M - y*ay/M

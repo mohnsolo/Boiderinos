@@ -137,19 +137,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="GameUtil.cpp" />
-    <ClCompile Include="main.cpp">
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\SDKs\SFML-2.6.1\include</AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\SDKs\SFML-2.6.1\include</AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\SDKs\SFML-2.6.1\include</AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\SDKs\SFML-2.6.1\include</AdditionalIncludeDirectories>
-    </ClCompile>
+    <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\GameUtil.cpp" />
+    <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Components.h" />
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="GameUtil.h" />
+    <ClInclude Include="src\Components.h" />
+    <ClInclude Include="src\Game.h" />
+    <ClInclude Include="src\GameUtil.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
