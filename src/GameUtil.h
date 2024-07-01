@@ -34,8 +34,3 @@ int bound(T& x, T lower, T upper)
         x = upper;
     return 0;
 }
-
-/*
-Rect to triangles
-    Takes a simple rectangle and generates 6 vertices
-*/
