@@ -19,11 +19,9 @@ class Game
 private:
     // Window Objects
     sf::RenderWindow window;
-    sf::View gameView;
-    sf::Vector2f viewPosition;
     sf::Event event;
     sf::Color winColor;
-    sf::Vector2i mousePos;
+    sf::Vector2i mousePos;  // future use
     const unsigned int winWidth = 1280;
     const unsigned int winHeight = 720;
 
@@ -33,7 +31,7 @@ private:
     bool displayText;
 
     // Game Objects
-    bool clicked = false;
+    bool clicked = false;   // future use
     unsigned int maxEntities = 1000;
     unsigned int numEntities = 0;
     float minSpeed = 200.f;
@@ -55,8 +53,6 @@ private:
     // Time Objects
     float dt;
     sf::Clock dt_clock;
-    float spawnTime = 0.05f;
-    float spawnCoolDown = 0.f;
 
     // Private Functions
     void initWindow(sf::VideoMode videoMode);
@@ -64,8 +60,6 @@ private:
     void updateVertices();
     void moveCenters();
     void applyForce();
-
-    // TEST
 
 
 public:

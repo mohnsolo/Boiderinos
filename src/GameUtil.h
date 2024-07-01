@@ -5,12 +5,6 @@
 #include <cmath>
 #include <SFML/System.hpp>
 
-sf::Vector2f getNormal(sf::Vector2f vec);
-
-void normalize(sf::Vector2f& vec);
-
-int resolve2d(unsigned int index, unsigned int width, sf::Vector2u& vect);
-
 float randRangef(float min, float max);
 
 // https://en.sfml-dev.org/forums/index.php?topic=2424.0
