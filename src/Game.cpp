@@ -33,6 +33,7 @@ void Game::initWindow(sf::VideoMode videoMode)
         sf::Style::Close | sf::Style::Titlebar);
     winColor = sf::Color::Black;
     window.setFramerateLimit(120);
+    ImGui::SFML::Init(window);
 }
 
 
@@ -180,6 +181,7 @@ void Game::pollEvents()
 {
     while (window.pollEvent(event))
     {
+        ImGui::SFML::ProcessEvent(window, event);
         switch (event.type)
         {
         case sf::Event::Closed:
@@ -204,6 +206,7 @@ void Game::pollEvents()
 
 void Game::update()
 {
+    ImGui::SFML::Update(window, dt_clock.restart());
     dt = dt_clock.restart().asSeconds();
     static float fpsAvg = 0.f;
     static float fpsAccumulated = 0.f;
@@ -268,5 +271,7 @@ void Game::render()
         window.draw(text);
     }
 
+    ImGui::SFML::Render(window);
+    
     window.display();
 }

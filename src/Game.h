@@ -7,10 +7,11 @@
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
-#include <SFML/Audio.hpp>
-#include <SFML/Network.hpp>
 #include "GameUtil.h"
 #include "Components.h"
+
+#include <imgui-SFML.h>
+#include <imgui.h>
 
 constexpr auto DegToRad = 3.14159265f / 180.0f;
 

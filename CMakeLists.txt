@@ -10,9 +10,11 @@ find_package(SFML 2.6.1 COMPONENTS graphics window system REQUIRED)
 
 add_executable(boids
     src/main.cpp
+    src/Game.cpp
+    src/GameUtil.cpp
 )
 target_include_directories(boids PRIVATE 
-#    ${CMAKE_SOURCE_DIR}/external/imgui
+    ${CMAKE_SOURCE_DIR}/src
     ${CMAKE_SOURCE_DIR}/external/imgui-sfml
 )
 #target_link_libraries(boids sfml-graphics)
