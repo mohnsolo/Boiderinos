@@ -13,9 +13,9 @@ Additionally, boids steer away from the edges of the window. This "force" is app
 - Interaction like clicking to add boids
 - Add obstacles
 - Random perturbations
-- Different "personalities", such as a leader or an enemy
+- Different "personalities", such as a leader or predator
 - Wind?
-- Add some slider bars to adjust parameters on the fly (imgui)
+- ~~Add some slider bars to adjust parameters on the fly (imgui)~~
 
 ## Building
 Follow the [SFML Getting Started Tutorials](https://www.sfml-dev.org/tutorials/2.6/) for linking.

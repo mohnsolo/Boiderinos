@@ -7,10 +7,11 @@
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
-#include <SFML/Audio.hpp>
-#include <SFML/Network.hpp>
 #include "GameUtil.h"
 #include "Components.h"
+
+#include <imgui-SFML.h>
+#include <imgui.h>
 
 constexpr auto DegToRad = 3.14159265f / 180.0f;
 
@@ -36,12 +37,15 @@ private:
     unsigned int numEntities = 0;
     float minSpeed = 200.f;
     float maxSpeed = 300.f;
-    float visualRange = 60.0f;
+    float visualRange = 75.0f;
     float closeRange = 20.0f;
-    float alignmentFactor = 0.005f;
-    float separationFactor = 0.7f;
-    float cohesionFactor = 0.03f;
-    float edgeFactor = 10.f;
+    const float alignmentDefault = 0.05f;
+    const float separationDefault = 0.1f;
+    const float cohesionDefault = 0.01f;
+    float alignmentFactor = alignmentDefault;
+    float separationFactor = separationDefault;
+    float cohesionFactor = cohesionDefault;
+    float edgeFactor = 5.f;
     float edgePadding = 150.f;
 
     // Components
@@ -52,7 +56,11 @@ private:
 
     // Time Objects
     float dt;
+    sf::Time sf_time;
     sf::Clock dt_clock;
+    float timeDilation = 1.0f;
+    float minTimeDilation = 0.1f;
+    float maxTimeDilation = 2.0f;
 
     // Private Functions
     void initWindow(sf::VideoMode videoMode);
