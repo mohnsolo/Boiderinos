@@ -26,7 +26,7 @@ add_subdirectory(external/imgui-sfml)
 target_link_libraries(boids PRIVATE ImGui-SFML::ImGui-SFML)
 
 # Copy necessary files into build dir
-configure_file(assets/GohuFont14NerdFontMono-Regular.ttf 
-    assets/GohuFont14NerdFontMono-Regular.ttf 
+configure_file(font/GohuFont14NerdFont-Regular.ttf 
+    font/GohuFont14NerdFont-Regular.ttf 
     COPYONLY
 )

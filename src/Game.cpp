@@ -61,6 +61,7 @@ void Game::applyForce()
     for (unsigned i = 0; i < numEntities; ++i)
     {
         sf::Vector2f centerOfMass;
+        sf::Vector2f avgVelocity;
         int numNeighbors = 0;
         sf::Vector2f dxdy;
         for (unsigned other = 0; other < numEntities; ++other)
@@ -79,14 +80,16 @@ void Game::applyForce()
                 else
                 {
                     centerOfMass += centers[other];
+                    avgVelocity += velocities[other];
                     ++numNeighbors;
-                    dxdy += (velocities[other] - velocities[i]) * alignmentFactor;
+                    //dxdy += (velocities[other]/* - velocities[i]*/) * alignmentFactor;
                 }
             }
         }
         if (numNeighbors > 0)
         {
             dxdy += (centerOfMass / static_cast<float>(numNeighbors) - centers[i]) * cohesionFactor;
+            dxdy += (avgVelocity / static_cast<float>(numNeighbors) - velocities[i]) * alignmentFactor;
         }
         velocities[i] += dxdy;
         float speed = std::sqrtf(velocities[i].x * velocities[i].x + velocities[i].y * velocities[i].y);
@@ -100,6 +103,7 @@ void Game::applyForce()
         }
     }
 }
+
 
 // TODO: consider joining centers and velocities into one array: c0,v0,c1,v1...cN,vN
 // Also, it may be worth storing velocity mags since they need to be checked for min/max: c0,v0,m0,c1,v1,m1...cN,vN,mN
@@ -127,8 +131,8 @@ void Game::moveCenters()
             velocities[i].y -= edgeFactor;
         }
 
-        centers[i].x += velocities[i].x * dt;
-        centers[i].y += velocities[i].y * dt;
+        centers[i].x += velocities[i].x * dt * timeDilation;
+        centers[i].y += velocities[i].y * dt * timeDilation;
     }
 }
 
@@ -191,6 +195,17 @@ void Game::pollEvents()
             if (event.key.code == sf::Keyboard::Escape) {
                 window.close();
             }
+            if (event.key.code == sf::Keyboard::Up) {
+                if (timeDilation < maxTimeDilation)
+                    timeDilation += 0.1f;
+            }
+            if (event.key.code == sf::Keyboard::Down) {
+                if (timeDilation > minTimeDilation)
+                    timeDilation -= 0.1f;
+            }
+            if (event.key.code == sf::Keyboard::R) {
+                timeDilation = 1.0f;
+            }
             break;
         case sf::Event::KeyReleased:
             break;
@@ -206,8 +221,9 @@ void Game::pollEvents()
 
 void Game::update()
 {
-    ImGui::SFML::Update(window, dt_clock.restart());
-    dt = dt_clock.restart().asSeconds();
+    sf_time = dt_clock.restart();
+    dt = sf_time.asSeconds();
+    ImGui::SFML::Update(window, sf_time);
     static float fpsAvg = 0.f;
     static float fpsAccumulated = 0.f;
     static float tempfpsMin = 1000.f;
@@ -247,16 +263,35 @@ void Game::update()
         tempfpsMax = 0.f;
     }
     pollEvents();
+    ImGui::SetNextWindowPos(ImVec2(0.f, 0.f));
+    ImGui::Begin("Attributes", NULL, ImGuiWindowFlags_AlwaysAutoResize);
+    ImGui::Text("Avg FPS: %d", static_cast<unsigned int>(fpsAvg));
+    ImGui::Text("Min FPS: %d", static_cast<unsigned int>(fpsMin));
+    ImGui::Text("Max FPS: %d", static_cast<unsigned int>(fpsMax));
+    ImGui::Text("Boid Count: %d", static_cast<unsigned int>(numEntities));
+    ImGui::SliderFloat("Speed", &timeDilation, minTimeDilation, maxTimeDilation);
+    ImGui::Separator();
+    ImGui::SliderFloat("Alignment", &alignmentFactor, 0.0f, 1.f);
+    ImGui::SliderFloat("Separation", &separationFactor, 0.0f, 1.f);
+    ImGui::SliderFloat("Cohesion", &cohesionFactor, 0.0f, 1.f);
+    if (ImGui::Button("Defaults", ImVec2(100.f, 20.f)))
+    {
+        alignmentFactor = alignmentDefault;
+        separationFactor = separationDefault;
+        cohesionFactor = cohesionDefault;
+    }
+    ImGui::End();
 
     applyForce();
     moveCenters(); 
     updateVertices();
 
-    text.setString("FPS: " + str(static_cast<unsigned int>(fpsAvg)) + "\n"
+    /*text.setString("FPS: " + str(static_cast<unsigned int>(fpsAvg)) + "\n"
                    "Min: " + str(static_cast<unsigned int>(fpsMin)) + "\n"
                    "Max: " + str(static_cast<unsigned int>(fpsMax)) + "\n"
                    "QTY: " + str(numEntities) + "\n"
-    );
+                   "Time Dilation: " + str(timeDilation) + "\n"
+    );*/
 }
 
 void Game::render()
@@ -272,6 +307,6 @@ void Game::render()
     }
 
     ImGui::SFML::Render(window);
-    
+
     window.display();
 }
